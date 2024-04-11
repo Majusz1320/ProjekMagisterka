@@ -14,16 +14,22 @@ ui <- fluidPage(
       numericInput('width_hist', 'Plot width [cm]', 20, min = 5, max = 25),
       numericInput('height_hist', 'Plot height [cm]', 14, min = 5, max = 25),
       numericInput('res_hist', 'Resolution', 200, min = 100, max = 500)),
-    mainPanel(tabsetPanel(type="tab", 
-                          tabPanel("Genes&stuff", tabsetPanel(type="tab"),
-                                   tabPanel("Heatmap"),
-                                   tabPanel("Table"),
-                                   tabPanel("TPM"),
-                                   tabPanel("GCSKEW")),
+    mainPanel(tabsetPanel(type="pills", 
+                          tabPanel("Genes&stuff",
+                                   navlistPanel(
+                                     title = "Visualizations",
+                                     nav_panel("Plot", plotOutput("plot")),
+                                     nav_panel("Summary", verbatimTextOutput("summary")),
+                                     nav_panel("Table", tableOutput("table")),
                           tabPanel("Results summary"),
-                          tabPanel("Help&Info")))
+                          tabPanel("Help&Info")
+                                   )
+                          )
+    )
+    )
   )
 )
+
 
 server <- function(input, output) {}
  
